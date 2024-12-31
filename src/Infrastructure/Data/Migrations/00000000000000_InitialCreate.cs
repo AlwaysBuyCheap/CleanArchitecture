@@ -11,6 +11,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            #if (UseAuthentication)
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -49,6 +50,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
+            #endif
 
             migrationBuilder.CreateTable(
                 name: "TodoLists",
@@ -59,15 +61,20 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Colour_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    #if (UseAuthentication)
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    #endif
                     LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    #if (UseAuthentication)
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    #endif
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TodoLists", x => x.Id);
                 });
 
+            #if (UseAuthentication)
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
@@ -183,6 +190,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            #endif
 
             migrationBuilder.CreateTable(
                 name: "TodoItems",
@@ -197,9 +205,13 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     Reminder = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Done = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    #if (UseAuthentication)
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    #endif
                     LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    #if (UseAuthentication)
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    #endif
                 },
                 constraints: table =>
                 {
@@ -212,6 +224,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            #if (UseAuthentication)
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -250,6 +263,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+            #endif
 
             migrationBuilder.CreateIndex(
                 name: "IX_TodoItems_ListId",
@@ -260,6 +274,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            #if (UseAuthentication)
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -274,15 +289,18 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+            #endif
 
             migrationBuilder.DropTable(
                 name: "TodoItems");
 
+            #if (UseAuthentication)
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+            #endif
 
             migrationBuilder.DropTable(
                 name: "TodoLists");

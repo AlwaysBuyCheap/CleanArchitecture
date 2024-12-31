@@ -1,13 +1,19 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
+#if (UseAuthentication)
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+#endif
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Data;
 
+#if (UseAuthentication)
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+#else
+public class ApplicationDbContext : DbContext, IApplicationDbContext
+#endif
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

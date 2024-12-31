@@ -1,8 +1,14 @@
-﻿using CleanArchitecture.Domain.Constants;
+﻿#if (UseAuthentication)
+using CleanArchitecture.Domain.Constants;
+#endif
 using CleanArchitecture.Domain.Entities;
+#if (UseAuthentication)
 using CleanArchitecture.Infrastructure.Identity;
+#endif
 using Microsoft.AspNetCore.Builder;
+#if (UseAuthentication)
 using Microsoft.AspNetCore.Identity;
+#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,9 +33,12 @@ public class ApplicationDbContextInitialiser
 {
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
+    #if (UseAuthentication)
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    #endif
 
+    #if (UseAuthentication)
     public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
@@ -37,6 +46,13 @@ public class ApplicationDbContextInitialiser
         _userManager = userManager;
         _roleManager = roleManager;
     }
+    #else
+        public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
+    {
+        _logger = logger;
+        _context = context;
+    }
+    #endif
 
     public async Task InitialiseAsync()
     {
@@ -66,6 +82,7 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
+        #if (UseAuthentication)
         // Default roles
         var administratorRole = new IdentityRole(Roles.Administrator);
 
@@ -85,6 +102,7 @@ public class ApplicationDbContextInitialiser
                 await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
+        #endif
 
         // Default data
         // Seed, if necessary

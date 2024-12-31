@@ -21,7 +21,9 @@ public class UpdateTodoItemDetailTests : BaseTestFixture
     [Test]
     public async Task ShouldUpdateTodoItem()
     {
+        #if (UseAuthentication) 
         var userId = await RunAsDefaultUserAsync();
+        #endif
 
         var listId = await SendAsync(new CreateTodoListCommand
         {
@@ -50,8 +52,10 @@ public class UpdateTodoItemDetailTests : BaseTestFixture
         item!.ListId.Should().Be(command.ListId);
         item.Note.Should().Be(command.Note);
         item.Priority.Should().Be(command.Priority);
+        #if (UseAuthentication)
         item.LastModifiedBy.Should().NotBeNull();
         item.LastModifiedBy.Should().Be(userId);
+        #endif
         item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

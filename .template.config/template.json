@@ -73,6 +73,12 @@
       "defaultValue": "false",
       "description": "Use .NET Aspire"
     },
+    "UseAuthentication": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Use authentication"
+    },
     "Database": {
       "type": "parameter",
       "datatype": "choice",
@@ -265,6 +271,19 @@
           "exclude": [
             "src/AppHost/**",
             "src/ServiceDefaults/**"
+          ]
+        },
+        {
+          "condition": "(!UseAuthentication)",
+          "exclude": [
+            "src/Common/Behaviours/AuthorizationBehaviour.cs",
+            "src/Common/Interfaces/IIdentityService.cs",
+            "src/Common/Interfaces/IUser.cs",
+            "src/Identity/ApplicationUser.cs",
+            "src/Identity/IdentityResultExtensions.cs",
+            "src/Identity/IdentityService.cs",
+            "src/Endpoints/Users.cs",
+            "src/Services/CurrentUser.cs"
           ]
         }
       ]

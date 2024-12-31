@@ -1,9 +1,13 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+#if (UseAuthentication)
 using CleanArchitecture.Domain.Constants;
+#endif
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
+#if (UseAuthentication)
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
+#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -45,6 +49,8 @@ public static class DependencyInjection
 
         builder.Services.AddScoped<ApplicationDbContextInitialiser>();
 
+
+#if (UseAuthentication)
 #if (UseApiOnly)
         builder.Services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
@@ -62,11 +68,14 @@ public static class DependencyInjection
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 #endif
+#endif
 
         builder.Services.AddSingleton(TimeProvider.System);
+        #if (UseAuthentication)
         builder.Services.AddTransient<IIdentityService, IdentityService>();
 
         builder.Services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        #endif
     }
 }

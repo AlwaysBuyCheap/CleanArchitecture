@@ -11,6 +11,10 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 #endif
 
+#if (!UseAuthentication && !UseApiOnly)
+using CleanArchitecture.Infrastructure.Data;
+#endif
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection

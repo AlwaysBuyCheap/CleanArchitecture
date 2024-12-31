@@ -276,14 +276,14 @@
         {
           "condition": "(!UseAuthentication)",
           "exclude": [
-            "src/Common/Behaviours/AuthorizationBehaviour.cs",
-            "src/Common/Interfaces/IIdentityService.cs",
-            "src/Common/Interfaces/IUser.cs",
-            "src/Identity/ApplicationUser.cs",
-            "src/Identity/IdentityResultExtensions.cs",
-            "src/Identity/IdentityService.cs",
-            "src/Endpoints/Users.cs",
-            "src/Services/CurrentUser.cs"
+            "src/Application/Common/Behaviours/AuthorizationBehaviour.cs",
+            "src/Application/Common/Interfaces/IIdentityService.cs",
+            "src/Application/Common/Interfaces/IUser.cs",
+            "src/Infrastructure/Identity/ApplicationUser.cs",
+            "src/Infrastructure/Identity/IdentityResultExtensions.cs",
+            "src/Infrastructure/Identity/IdentityService.cs",
+            "src/Web/Endpoints/Users.cs",
+            "src/Web/Services/CurrentUser.cs"
           ]
         }
       ]

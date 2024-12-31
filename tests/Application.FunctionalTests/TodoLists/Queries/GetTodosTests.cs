@@ -4,7 +4,7 @@ using CleanArchitecture.Domain.ValueObjects;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Queries;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class GetTodosTests : BaseTestFixture
 {

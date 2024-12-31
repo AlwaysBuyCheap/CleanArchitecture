@@ -13,9 +13,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 #endif
 
+#if(!UseAuthentication && !UseAspire)
+using CleanArchitecture.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+#endif
+
 namespace CleanArchitecture.Application.FunctionalTests;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {

@@ -7,7 +7,7 @@ using CleanArchitecture.Domain.Enums;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class UpdateTodoItemDetailTests : BaseTestFixture
 {

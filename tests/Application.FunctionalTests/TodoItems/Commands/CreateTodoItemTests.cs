@@ -5,7 +5,7 @@ using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class CreateTodoItemTests : BaseTestFixture
 {
@@ -21,7 +21,9 @@ public class CreateTodoItemTests : BaseTestFixture
     [Test]
     public async Task ShouldCreateTodoItem()
     {
+        #if (UseAuthentication)
         var userId = await RunAsDefaultUserAsync();
+        #endif
 
         var listId = await SendAsync(new CreateTodoListCommand
         {
@@ -41,9 +43,13 @@ public class CreateTodoItemTests : BaseTestFixture
         item.Should().NotBeNull();
         item!.ListId.Should().Be(command.ListId);
         item.Title.Should().Be(command.Title);
+        #if (UseAuthentication)
         item.CreatedBy.Should().Be(userId);
+        #endif
         item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+        #if (UseAuthentication)
         item.LastModifiedBy.Should().Be(userId);
+        #endif
         item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

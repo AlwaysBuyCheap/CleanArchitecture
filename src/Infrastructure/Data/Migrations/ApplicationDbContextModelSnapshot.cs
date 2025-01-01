@@ -33,8 +33,10 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 b.Property<DateTimeOffset>("Created")
                     .HasColumnType("datetimeoffset");
 
+                #if (UseAuthentication)
                 b.Property<string>("CreatedBy")
                     .HasColumnType("nvarchar(max)");
+                #endif
 
                 b.Property<bool>("Done")
                     .HasColumnType("bit");
@@ -42,8 +44,10 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 b.Property<DateTimeOffset>("LastModified")
                     .HasColumnType("datetimeoffset");
 
+                #if (UseAuthentication)
                 b.Property<string>("LastModifiedBy")
                     .HasColumnType("nvarchar(max)");
+                #endif
 
                 b.Property<int>("ListId")
                     .HasColumnType("int");
@@ -80,14 +84,18 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 b.Property<DateTimeOffset>("Created")
                     .HasColumnType("datetimeoffset");
 
+                #if (UseAuthentication)
                 b.Property<string>("CreatedBy")
                     .HasColumnType("nvarchar(max)");
+                #endif
 
                 b.Property<DateTimeOffset>("LastModified")
                     .HasColumnType("datetimeoffset");
 
+                #if (UseAuthentication)
                 b.Property<string>("LastModifiedBy")
                     .HasColumnType("nvarchar(max)");
+                #endif
 
                 b.Property<string>("Title")
                     .IsRequired()
@@ -99,6 +107,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 b.ToTable("TodoLists");
             });
 
+            #if (UseAuthentication)
             modelBuilder.Entity("CleanArchitecture.Infrastructure.Identity.ApplicationUser", b =>
             {
                 b.Property<string>("Id")
@@ -316,6 +325,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                 b.ToTable("AspNetUserTokens", (string)null);
             });
+            #endif
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.TodoItem", b =>
             {
@@ -351,6 +361,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     .IsRequired();
             });
 
+            #if (UseAuthentication)
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
             {
                 b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -401,6 +412,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             });
+            #endif
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.TodoList", b =>
             {

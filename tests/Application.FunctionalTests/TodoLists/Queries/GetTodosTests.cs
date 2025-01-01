@@ -4,14 +4,16 @@ using CleanArchitecture.Domain.ValueObjects;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Queries;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class GetTodosTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldReturnPriorityLevels()
     {
+        #if (UseAuthentication)
         await RunAsDefaultUserAsync();
+        #endif
 
         var query = new GetTodosQuery();
 
@@ -23,7 +25,9 @@ public class GetTodosTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnAllListsAndItems()
     {
+        #if (UseAuthentication)
         await RunAsDefaultUserAsync();
+        #endif
 
         await AddAsync(new TodoList
         {
@@ -56,6 +60,10 @@ public class GetTodosTests : BaseTestFixture
 
         var action = () => SendAsync(query);
         
+        #if (UseAuthentication)
         await action.Should().ThrowAsync<UnauthorizedAccessException>();
+        #else
+        await action.Should().NotThrowAsync();
+        #endif
     }
 }

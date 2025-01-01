@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+#if (UseAuthentication)
 using CleanArchitecture.Application.Common.Interfaces;
+#endif
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
@@ -8,13 +10,13 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
 {
     private readonly Stopwatch _timer;
     private readonly ILogger<TRequest> _logger;
+    #if (UseAuthentication)
     private readonly IUser _user;
     private readonly IIdentityService _identityService;
+    #endif
 
-    public PerformanceBehaviour(
-        ILogger<TRequest> logger,
-        IUser user,
-        IIdentityService identityService)
+    #if (UseAuthentication)
+    public PerformanceBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
     {
         _timer = new Stopwatch();
 
@@ -22,6 +24,14 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         _user = user;
         _identityService = identityService;
     }
+    #else
+    public PerformanceBehaviour(ILogger<TRequest> logger)
+    {
+        _timer = new Stopwatch();
+
+        _logger = logger;
+    }
+    #endif
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -36,6 +46,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         if (elapsedMilliseconds > 500)
         {
             var requestName = typeof(TRequest).Name;
+            #if (UseAuthentication)
             var userId = _user.Id ?? string.Empty;
             var userName = string.Empty;
 
@@ -43,9 +54,14 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
             {
                 userName = await _identityService.GetUserNameAsync(userId);
             }
+            #endif
 
+            #if (UseAuthentication)
             _logger.LogWarning("CleanArchitecture Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
                 requestName, elapsedMilliseconds, userId, userName, request);
+            #else
+            _logger.LogWarning("CleanArchitectureNoAuth Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", requestName, elapsedMilliseconds, request);
+            #endif
         }
 
         return response;

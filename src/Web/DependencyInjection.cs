@@ -1,12 +1,18 @@
 ﻿using Azure.Identity;
+#if (UseAuthentication)
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
+#endif
 using Microsoft.AspNetCore.Mvc;
 
-#if (UseApiOnly)
+#if (UseApiOnly && UseAuthentication)
 using NSwag;
 using NSwag.Generation.Processors.Security;
+#endif
+
+#if (!UseAuthentication && !UseApiOnly)
+using CleanArchitecture.Infrastructure.Data;
 #endif
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -17,7 +23,9 @@ public static class DependencyInjection
     {
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+        #if (UseAuthentication)
         builder.Services.AddScoped<IUser, CurrentUser>();
+        #endif
 
         builder.Services.AddHttpContextAccessor();
 #if (!UseAspire)
@@ -41,7 +49,7 @@ public static class DependencyInjection
         {
             configure.Title = "CleanArchitecture API";
 
-#if (UseApiOnly)
+#if (UseApiOnly && UseAuthentication)
             // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
             {

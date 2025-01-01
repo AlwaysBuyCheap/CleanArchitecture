@@ -1,4 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿#if (UseAuthentication)
+using CleanArchitecture.Application.Common.Interfaces;
+#endif
 using CleanArchitecture.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -8,16 +10,23 @@ namespace CleanArchitecture.Infrastructure.Data.Interceptors;
 
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
+    #if (UseAuthentication)
     private readonly IUser _user;
+    #endif
     private readonly TimeProvider _dateTime;
 
-    public AuditableEntityInterceptor(
-        IUser user,
-        TimeProvider dateTime)
+    #if (UseAuthentication)
+    public AuditableEntityInterceptor(IUser user, TimeProvider dateTime)
     {
         _user = user;
         _dateTime = dateTime;
     }
+    #else
+    public AuditableEntityInterceptor(TimeProvider dateTime)
+    {
+        _dateTime = dateTime;
+    }
+    #endif
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -44,10 +53,14 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
                 var utcNow = _dateTime.GetUtcNow();
                 if (entry.State == EntityState.Added)
                 {
+                    #if (UseAuthentication)
                     entry.Entity.CreatedBy = _user.Id;
+                    #endif
                     entry.Entity.Created = utcNow;
                 } 
+                #if (UseAuthentication)
                 entry.Entity.LastModifiedBy = _user.Id;
+                #endif
                 entry.Entity.LastModified = utcNow;
             }
         }

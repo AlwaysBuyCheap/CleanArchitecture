@@ -1,8 +1,14 @@
-﻿using CleanArchitecture.Domain.Constants;
+﻿#if (UseAuthentication)
+using CleanArchitecture.Domain.Constants;
+#endif
 using CleanArchitecture.Infrastructure.Data;
+#if (UseAuthentication)
 using CleanArchitecture.Infrastructure.Identity;
+#endif
 using MediatR;
+#if (UseAuthentication)
 using Microsoft.AspNetCore.Identity;
+#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -49,6 +55,7 @@ public partial class Testing
         return _userId;
     }
 
+#if (UseAuthentication)
     public static async Task<string> RunAsDefaultUserAsync()
     {
         return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
@@ -92,6 +99,7 @@ public partial class Testing
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
+#endif
 
     public static async Task ResetState()
     {

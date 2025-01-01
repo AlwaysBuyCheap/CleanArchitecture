@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Application.FunctionalTests;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 [TestFixture]
 public abstract class BaseTestFixture

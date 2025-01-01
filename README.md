@@ -87,6 +87,12 @@ For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
 
+It can also be done from the infrastructure project running
+
+`dotnet ef migrations add <MigrationName>`
+
+for it, a piece of code must be uncomented in the DbContext.
+
 ## Deploy
 
 This template is structured to follow the Azure Developer CLI (azd). You can learn more about `azd` in the [official documentation](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli). To get started:

@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 #endif
 {
+    public ApplicationDbContext() { }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     public DbSet<TodoList> TodoLists => Set<TodoList>();
@@ -26,4 +27,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
+
+    //Uncomment to add migrations
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer("Server=localhost;Database=CleanArchitecture;Trusted_Connection=True;");
+    //}
 }

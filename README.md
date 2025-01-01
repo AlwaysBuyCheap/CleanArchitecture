@@ -99,6 +99,22 @@ azd auth login
 azd up
 ```
 
+## Template
+
+```bash
+dotnet build -c Release
+
+dotnet nuget add source .\Clean.Architecture.Solution.Template.9.0.8.nupkg -n LocalSource
+
+dotnet add package Clean.Architecture.Solution.Template --source LocalSource
+
+nuget pack .\CleanArchitecture.nuspec
+
+dotnet new uninstall Clean.Architecture.Solution.Template
+
+dotnet new install .\Clean.Architecture.Solution.Template.9.0.8.nupkg
+```
+
 ## Technologies
 
 * [ASP.NET Core 9](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)

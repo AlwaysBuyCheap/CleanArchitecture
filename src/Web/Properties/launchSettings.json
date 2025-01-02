@@ -19,15 +19,27 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-      "IIS Express": {
-        "commandName": "IISExpress",
-        "launchBrowser": true,
-        "environmentVariables": {
-          //#if(!UseApiOnly)
-          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-          //#endif
-          "ASPNETCORE_ENVIRONMENT": "Development"
-        }
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        //#if(!UseApiOnly)
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+        //#endif
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "ConnectionStrings__jhdsfdsf3232fsdfds21Db": "Server=host.docker.internal,1433;Database=master;User Id=sa;Password=YourStrong@Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
     }
+  }
 }

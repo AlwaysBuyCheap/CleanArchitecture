@@ -1,12 +1,18 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿#if (UseAuthentication)
+using CleanArchitecture.Application.Common.Exceptions;
+#endif
 using CleanArchitecture.Application.Common.Security;
+#if (UseAuthentication)
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
+#endif
 using CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
+#if (UseAuthentication)
 using CleanArchitecture.Domain.Entities;
+#endif
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Commands;
 
-using static Testing;
+using static CleanArchitecture.Application.FunctionalTests.Testing;
 
 public class PurgeTodoListsTests : BaseTestFixture
 {
@@ -19,9 +25,14 @@ public class PurgeTodoListsTests : BaseTestFixture
 
         var action = () => SendAsync(command);
 
+        #if (UseAuthentication)
         await action.Should().ThrowAsync<UnauthorizedAccessException>();
+        #else
+        await action.Should().NotThrowAsync();
+        #endif
     }
 
+    #if (UseAuthentication)
     [Test]
     public async Task ShouldDenyNonAdministrator()
     {
@@ -72,4 +83,5 @@ public class PurgeTodoListsTests : BaseTestFixture
 
         count.Should().Be(0);
     }
+    #endif
 }

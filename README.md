@@ -87,6 +87,12 @@ For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
 
+It can also be done from the infrastructure project running
+
+`dotnet ef migrations add <MigrationName>`
+
+for it, a piece of code must be uncomented in the DbContext.
+
 To run the Web Api alone, when doing it with IIS Express, only SQLServer LocalDb installation is required.
 When runing it with Docker, first the container must be started with the following command
 
@@ -102,6 +108,22 @@ azd auth login
 
 # Provsion and deploy to Azure
 azd up
+```
+
+## Template
+
+```bash
+dotnet build -c Release
+
+dotnet nuget add source .\Clean.Architecture.Solution.Template.9.0.8.nupkg -n LocalSource
+
+dotnet add package Clean.Architecture.Solution.Template --source LocalSource
+
+nuget pack .\CleanArchitecture.nuspec
+
+dotnet new uninstall Clean.Architecture.Solution.Template
+
+dotnet new install .\Clean.Architecture.Solution.Template.9.0.8.nupkg
 ```
 
 ## Technologies

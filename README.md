@@ -93,6 +93,13 @@ It can also be done from the infrastructure project running
 
 for it, a piece of code must be uncomented in the DbContext.
 
+To run the Web Api alone, when doing it with IIS Express, only SQLServer LocalDb installation is required.
+When runing it with Docker, first the container must be started with the following command
+
+`docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong@Passw0rd" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2022-latest`
+
+Additionally, to run the WebApi using Docker, UserSecrets must be added to the WebApi project. For it, right click in Web and select "Add User Secrets".
+
 ## Deploy
 
 This template is structured to follow the Azure Developer CLI (azd). You can learn more about `azd` in the [official documentation](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli). To get started:

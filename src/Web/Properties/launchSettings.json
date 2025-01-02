@@ -36,7 +36,7 @@
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORTS": "8081",
         "ASPNETCORE_HTTP_PORTS": "8080",
-        "ConnectionStrings__jhdsfdsf3232fsdfds21Db": "Server=host.docker.internal,1433;Database=master;User Id=sa;Password=YourStrong@Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
+        "ConnectionStrings__CleanArchitectureDb": "Server=host.docker.internal,1433;Database=master;User Id=sa;Password=YourStrong@Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
       },
       "publishAllPorts": true,
       "useSSL": true

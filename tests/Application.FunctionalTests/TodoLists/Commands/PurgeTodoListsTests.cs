@@ -3,9 +3,9 @@ using CleanArchitecture.Application.Common.Exceptions;
 #endif
 using CleanArchitecture.Application.Common.Security;
 #if (UseAuthentication)
-using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
+using CleanArchitecture.Application.Data.TodoLists.Commands.CreateTodoList;
 #endif
-using CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
+using CleanArchitecture.Application.Data.TodoLists.Commands.PurgeTodoLists;
 #if (UseAuthentication)
 using CleanArchitecture.Domain.Entities;
 #endif

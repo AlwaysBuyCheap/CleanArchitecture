@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+using CleanArchitecture.Application.Data.TodoItems.Commands.CreateTodoItem;
+using CleanArchitecture.Application.Data.TodoItems.Commands.UpdateTodoItem;
+using CleanArchitecture.Application.Data.TodoItems.Commands.UpdateTodoItemDetail;
+using CleanArchitecture.Application.Data.TodoItems.Queries.GetTodoItemsWithPagination;
+using CleanArchitecture.Application.Data.TodoItems.Commands.DeleteTodoItem;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArchitecture.Web.Endpoints;

@@ -1,8 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Behaviours;
+using CleanArchitecture.Application.Data.TodoItems.Commands.CreateTodoItem;
+
 #if (UseAuthentication)
 using CleanArchitecture.Application.Common.Interfaces;
 #endif
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;

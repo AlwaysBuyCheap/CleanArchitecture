@@ -3,8 +3,8 @@ using System.Runtime.CompilerServices;
 using AutoMapper;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using CleanArchitecture.Application.Data.TodoItems.Queries.GetTodoItemsWithPagination;
+using CleanArchitecture.Application.Data.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using NUnit.Framework;
 

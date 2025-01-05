@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿using CleanArchitecture.Application.Data.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.ValueObjects;
 

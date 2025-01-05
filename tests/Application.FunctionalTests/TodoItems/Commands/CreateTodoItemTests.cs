@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
-using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
+using CleanArchitecture.Application.Data.TodoItems.Commands.CreateTodoItem;
+using CleanArchitecture.Application.Data.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;

@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
-using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
-using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿using CleanArchitecture.Application.Data.TodoLists.Commands.CreateTodoList;
+using CleanArchitecture.Application.Data.TodoLists.Commands.UpdateTodoList;
+using CleanArchitecture.Application.Data.TodoLists.Queries.GetTodos;
+using CleanArchitecture.Application.Data.TodoLists.Commands.DeleteTodoList;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArchitecture.Web.Endpoints;
